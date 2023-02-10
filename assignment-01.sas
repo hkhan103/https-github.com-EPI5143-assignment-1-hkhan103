@@ -18,7 +18,7 @@ If this variable represents those individuals in the dataset with diabetes, what
 proc freq data= '/home/u63048332/quiz1/quiz1_data.sas7bdat';
 table diabetes;
 run; 
-*Q4- Ans: 31 out of 1150 people have diabetes. Hence, the porportion of peopl who have diabetes is 2.70%
+*Q4- Ans: 31 out of 1150 people have diabetes. Hence, the proportion of people who have diabetes is 2.70%
 
 -----------
 
