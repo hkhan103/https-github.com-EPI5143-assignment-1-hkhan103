@@ -1,0 +1,357 @@
+ 
+ 1          OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 68         
+ 69         
+ 70         *Khan Hassan - EPI 5143: Quiz 1
+ 71         
+ 72         Created: Feb 09, 2023;
+ 73         
+ 74         *Q2- create SAS lib 'quiz 1';
+ 75         libname QUIZ1 '/home/u63048332/';
+ NOTE: Libref QUIZ1 refers to the same physical library as FILESHOM.
+ NOTE: Libref QUIZ1 was successfully assigned as follows: 
+       Engine:        V9 
+       Physical Name: /home/u63048332
+ 76         
+ 77         *Q3- Added file 'quiz1_data.sas7bdat' to lib Quiz1 and then pulled the file using the following code;
+ 78         proc contents data= '/home/u63048332/quiz1/quiz1_data.sas7bdat';
+ 79         run;
+ 
+ NOTE: PROCEDURE CONTENTS used (Total process time):
+       real time           0.03 seconds
+       user cpu time       0.03 seconds
+       system cpu time     0.00 seconds
+       memory              1755.90k
+       OS Memory           22444.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        266  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     132
+       Page Swaps                        0
+       Voluntary Context Switches        10
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           16
+       
+ 
+ 80         *Q3- Ans: The output generated shows that there are 2334 obs and 7 variables
+ 81         
+ 82         -----------
+ 83         
+ 84         *Q4- Use PROC FREQ to provide information about the variable diabetes.
+ 85         If this variable represents those individuals in the dataset with diabetes, what proportion of people in the dataset have
+ 85       !  diabetes? (provide the frequency table with your answers);
+ 86         proc freq data= '/home/u63048332/quiz1/quiz1_data.sas7bdat';
+ 87         table diabetes;
+ 88         run;
+ 
+ NOTE: There were 1150 observations read from the data set /home/u63048332/quiz1/quiz1_data.sas7bdat.
+ NOTE: PROCEDURE FREQ used (Total process time):
+       real time           0.01 seconds
+       user cpu time       0.01 seconds
+       system cpu time     0.00 seconds
+       memory              813.06k
+       OS Memory           22444.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        267  Switch Count  3
+       Page Faults                       0
+       Page Reclaims                     178
+       Page Swaps                        0
+       Voluntary Context Switches        19
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           264
+       
+ 
+ 89         *Q4- Ans: 31 out of 1150 people have diabetes. Hence, the porportion of peopl who have diabetes is 2.70%
+ 90         
+ 91         -----------
+ 92         
+ 93         *Q5a- Use PROC UNIVARIATE to provide information about the variable X1. What are the mean and standard deviation of X1?;
+ 94         proc univariate data='/home/u63048332/quiz1/quiz1_data.sas7bdat';
+ 95         var X1;
+ 96         histogram X1;
+ 97         run;
+ 
+ NOTE: PROCEDURE UNIVARIATE used (Total process time):
+       real time           0.22 seconds
+       user cpu time       0.12 seconds
+       system cpu time     0.01 seconds
+       memory              13243.37k
+       OS Memory           35332.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        268  Switch Count  1
+       Page Faults                       0
+       Page Reclaims                     3461
+       Page Swaps                        0
+       Voluntary Context Switches        142
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           664
+       
+ 
+ 98         *Q5a- Ans: For variable X1, mean= 1.17, std=0.98
+ 99         *Q5b- Line 28 computes frequency histogram for var X1
+ 100        
+ 101        -----------
+ 102        
+ 103        *Q6- Create a temporary copy of the quiz1 dataset called work.quiz1;
+ 104        data work.quiz1;
+ 105          set '/home/u63048332/quiz1/quiz1_data.sas7bdat'; *Q6-Ans: Asking SAS to pull this file from lib to create a new
+ 105      ! temporary dataset called 'work.quiz1';
+ 106        run;
+ 
+ NOTE: There were 1150 observations read from the data set /home/u63048332/quiz1/quiz1_data.sas7bdat.
+ NOTE: The data set WORK.QUIZ1 has 1150 observations and 7 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.01 seconds
+       memory              940.59k
+       OS Memory           34476.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        269  Switch Count  3
+       Page Faults                       0
+       Page Reclaims                     121
+       Page Swaps                        0
+       Voluntary Context Switches        19
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           264
+       
+ 
+ 107        
+ 108        *-----------
+ 109        
+ 110        *Q7a- Create a new variable called mean_V1 that is the mean of X1, X2 and X3 using mathematical operators;
+ 111        data work.quiz1;
+ 112          set work.quiz1;
+ 113          mean_V1 = (X1 + X2 + X3) / 3; *Q7a- Ans: created a new variable 'V1' that takes the average of X1,X2 and X3 using
+ 113      ! mathematical operators;
+ 114        run;
+ 
+ NOTE: There were 1150 observations read from the data set WORK.QUIZ1.
+ NOTE: The data set WORK.QUIZ1 has 1150 observations and 8 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              939.53k
+       OS Memory           34476.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        270  Switch Count  2
+       Page Faults                       0
+       Page Reclaims                     123
+       Page Swaps                        0
+       Voluntary Context Switches        12
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           264
+       
+ 
+ 115        
+ 116        *-----------
+ 117        
+ 118        Q7b- Create a new variable called mean_V2 that is the mean of X1, X2 and X3 using a SAS function;
+ 119        data work.quiz1;
+ 120          set work.quiz1;
+ 121          mean_V2 = mean(X1, X2, X3); *Q7b- Ans: created a new variable 'V1' that takes the average of X1,X2 and X3 using SAS
+ 121      ! fucntion;
+ 122        run;
+ 
+ NOTE: There were 1150 observations read from the data set WORK.QUIZ1.
+ NOTE: The data set WORK.QUIZ1 has 1150 observations and 9 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              946.65k
+       OS Memory           34476.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        271  Switch Count  2
+       Page Faults                       0
+       Page Reclaims                     110
+       Page Swaps                        0
+       Voluntary Context Switches        14
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           264
+       
+ 
+ 123        
+ 124        *-----------
+ 125        
+ 126        Q8- Consult_dt and Surgery_dt are SAS dates.  Create a new variable called wait_time that calculates the time in days
+ 126      ! between consult and surgery;
+ 127        data work.quiz1;
+ 128          set work.quiz1;
+ 129          wait_time = intck('day', Consult_dt, Surgery_dt); *Q8 - Ans: created a new variable which is the time difference (in
+ 129      ! days) between consult date (i.e., start date) and surgery date (i.e., end date);
+ 130        run;
+ 
+ NOTE: There were 1150 observations read from the data set WORK.QUIZ1.
+ NOTE: The data set WORK.QUIZ1 has 1150 observations and 10 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              932.40k
+       OS Memory           34476.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        272  Switch Count  2
+       Page Faults                       0
+       Page Reclaims                     110
+       Page Swaps                        0
+       Voluntary Context Switches        14
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           264
+       
+ 
+ 131        
+ 132        *-----------
+ 133        
+ 134        *Q9- Create a new variable called X2_high which has a value of 1 if X2 is greater than or equal to the mean of X2 and 0
+ 134      ! otherwise
+ 135        
+ 136        Step 1 - Finding out the mean of X2;
+ 137        proc univariate data=work.quiz1;
+ 138        var X2; *...which is 11.05;
+ 139        run;
+ 
+ NOTE: PROCEDURE UNIVARIATE used (Total process time):
+       real time           0.05 seconds
+       user cpu time       0.05 seconds
+       system cpu time     0.00 seconds
+       memory              817.46k
+       OS Memory           34216.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        273  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     77
+       Page Swaps                        0
+       Voluntary Context Switches        0
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           0
+       
+ 
+ 140        
+ 141        *Q9 - Step 2;
+ 142        data work.quiz1;
+ 143          set work.quiz1;
+ 144          if X2 >= 11.05 then X2_high = 1;
+ 145          else X2_high = 0;
+ 146        run;
+ 
+ NOTE: There were 1150 observations read from the data set WORK.QUIZ1.
+ NOTE: The data set WORK.QUIZ1 has 1150 observations and 11 variables.
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              960.87k
+       OS Memory           34476.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        274  Switch Count  2
+       Page Faults                       0
+       Page Reclaims                     103
+       Page Swaps                        0
+       Voluntary Context Switches        11
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           264
+       
+ 
+ 147        
+ 148        
+ 149        *-----------
+ 150        
+ 151        Q10a - Use PROC UNIVARIATE to find out the mean values of the variables of mean_V1, and mean_V2, and the median, minimum
+ 151      ! and maximum values for wait_time;
+ 152        proc univariate data=work.quiz1;
+ 153          var mean_V1 mean_V2 wait_time;
+ 154        run;
+ 
+ NOTE: PROCEDURE UNIVARIATE used (Total process time):
+       real time           0.12 seconds
+       user cpu time       0.13 seconds
+       system cpu time     0.00 seconds
+       memory              896.81k
+       OS Memory           34216.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        275  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     75
+       Page Swaps                        0
+       Voluntary Context Switches        0
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           48
+       
+ 
+ 155        
+ 156        *Q10a - Ans: The mean of variables 'meanv1' and 'meanV2' is 12.74.
+ 157        The median for 'wait_time' is 52.00 and the min/max values are 0 and 99, respectively;
+ 158        
+ 159        *-----------
+ 160        
+ 161        Q10b- Use PROC FREQ to create a 2x2 frequency table for X1_high vs. diabetes.;
+ 162        proc freq data=work.quiz1;
+ 163        table X2_high * diabetes;
+ 164        run;
+ 
+ NOTE: There were 1150 observations read from the data set WORK.QUIZ1.
+ NOTE: PROCEDURE FREQ used (Total process time):
+       real time           0.02 seconds
+       user cpu time       0.03 seconds
+       system cpu time     0.00 seconds
+       memory              1314.81k
+       OS Memory           34736.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        276  Switch Count  4
+       Page Faults                       0
+       Page Reclaims                     204
+       Page Swaps                        0
+       Voluntary Context Switches        29
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           528
+       
+ 
+ 165        
+ 166        
+ 167        **-----------END QUIZ 1 -----------**
+ 168        
+ 169        
+ 170        
+ 171        OPTIONS NONOTES NOSTIMER NOSOURCE NOSYNTAXCHECK;
+ 172        ODS HTML CLOSE;
+ 173        &GRAPHTERM; ;*';*";*/;RUN;QUIT;
+ 174        QUIT;RUN;
+ 175        ODS HTML5 (ID=WEB) CLOSE;
+ 176        
+ 177        FILENAME _GSFNAME;
+ NOTE: Fileref _GSFNAME has been deassigned.
+ 178        DATA _NULL_;
+ 179        RUN;
+ 
+ NOTE: DATA statement used (Total process time):
+       real time           0.00 seconds
+       user cpu time       0.00 seconds
+       system cpu time     0.00 seconds
+       memory              460.93k
+       OS Memory           22188.00k
+       Timestamp           02/10/2023 03:34:11 AM
+       Step Count                        277  Switch Count  0
+       Page Faults                       0
+       Page Reclaims                     26
+       Page Swaps                        0
+       Voluntary Context Switches        0
+       Involuntary Context Switches      0
+       Block Input Operations            0
+       Block Output Operations           0
+       
+ 
+ 180        OPTIONS NOTES STIMER SOURCE SYNTAXCHECK;
+ 181        
