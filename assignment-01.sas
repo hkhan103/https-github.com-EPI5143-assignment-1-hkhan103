@@ -9,7 +9,7 @@ libname QUIZ1 '/home/u63048332/';
 *Q3- Added file 'quiz1_data.sas7bdat' to lib Quiz1 and then pulled the file using the following code;
 proc contents data= '/home/u63048332/quiz1/quiz1_data.sas7bdat';
 run; 
-*Q3- Ans: The output generated shows that there are 2334 obs and 7 variables
+*Q3- Ans: The output generated shows that there are 1150 obs and 7 variables
 
 -----------
 
